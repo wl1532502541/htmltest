@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    没有防抖的input：<input type="text" id="noDebounce">
+    有防抖的input：<input type="text" id="withDebounce">
+    <script>
+        function print(e){
+            console.log("ajax request:",e.target.value)
+        }
+        function debounce(fn,time){
+            return function(...args){
+                clearTimeout(fn.timer)
+                fn.timer=setTimeout(fn,time,...args)
+            }
+        }
+        let noDebounceInput=document.getElementById("noDebounce")
+        let withDebounceInput = document.getElementById("withDebounce")
+        noDebounceInput.addEventListener("keyup",print)
+        withDebounceInput.addEventListener("keyup",debounce(print,500))
+    </script>
+</body>
+</html>

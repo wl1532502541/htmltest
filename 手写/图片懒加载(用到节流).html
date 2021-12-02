@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img{
+            display: block;
+            margin-bottom: 50px;
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <img src="loading.gif" realSrc="/static/images/mikasa.png" alt=""><br>
+    <img src="loading.gif" realSrc="/static/images/klee.jpg" alt="" loading="lazy"><br>
+    <img src="loading.gif" realSrc="/static/images/pp.jpg" alt="" loading="lazy"><br>
+    <img src="loading.gif" realSrc="/static/images/kirito.png" alt="" loading="lazy"><br>
+    <img src="loading.gif" realSrc="/static/images/cat.jpg" alt="" loading="lazy"><br>
+    <script>
+        const backUrl='https://qcrpwz.app.cloudendpoint.cn'
+        function isVisible(el){
+            const position = el.getBoundingClientRect()
+            const windowHeight = document.documentElement.clientHeight
+            //顶部边缘可见
+            const topVisible = position.top > 0 && position.top<windowHeight
+            //底部边缘可见
+            const bottomVisible = position.bottom >0 && position.bottom < windowHeight
+            // console.log(topVisible || bottomVisible)
+            return topVisible || bottomVisible  
+        }
+        function imageLazyLoad(){
+            console.log(document.documentElement.scrollTop)
+            const images = document.querySelectorAll('img')
+            for(let img of images){
+                // console.log(img.dataset.realSrc)
+                const realSrc = backUrl+''+img.getAttribute('realSrc')
+                if(!img.getAttribute('realSrc'))continue
+                if(isVisible(img)){
+                    img.src=realSrc
+                    img.setAttribute('realSrc','')
+                }
+            }
+        }
+        imageLazyLoad()
+        function throttle(fn,delay){
+            let lastTime=Date.now()
+            return function(){
+                clearTimeout(fn.deferTimer)
+                if(Date.now()-lastTime>delay){
+                    lastTime=Date.now()
+                    fn()
+                }else{
+                    fn.deferTimer=setTimeout(fn,delay)
+                }
+            }
+        }
+        // document.addEventListener("scroll",imageLazyLoad)
+        document.addEventListener("scroll",throttle(imageLazyLoad,100))
+    </script>
+</body>
+</html>

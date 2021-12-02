@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img id="football" src="http://pic.616pic.com/ys_b_img/00/04/52/n8PUzPnGcq.jpg" alt="">
+    <script>
+        let football = document.getElementById('football')
+        let degree=0
+        setInterval(()=>{
+            degree+=5
+            if(degree>=360){
+                degree-=360
+            }
+            football.style.transform="rotate("+degree+"deg)";
+        },10)
+    </script>
+</body>
+</html>

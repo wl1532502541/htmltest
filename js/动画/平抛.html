@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* #train{
+            transform: translate(500px,500px);
+        } */
+    </style>
+</head>
+<body>
+    <div id="train" style="border: 2px solid seagreen;width: 0;height: 0;">
+
+    </div>
+    <script>
+        function animate({duration,timing,draw}){
+            timerFractionPre=performance.now()
+            //一直
+            setInterval(()=>{
+                let timerFraction=performance.now()-timerFractionPre
+                console.log(1)
+                draw(timing(timerFraction/duration))  
+            },1)
+            //循环
+        }
+        const train=document.getElementById("train")
+        const draw=(progress)=>{
+            console.log('draw')
+            train.style.transform = `translate(${5*progress.x}px,${5*(progress.y-1)}px)`
+            console.log(train.style.x)
+        }
+        animate({
+            duration:1000,
+            timing(timerFraction){
+                return{
+                    x:timerFraction,
+                    y:timerFraction **2
+                }
+            },
+            draw
+        })
+    </script>
+</body>
+</html>
