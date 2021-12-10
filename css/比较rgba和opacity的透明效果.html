@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .father{
+            background-color: rgb(125, 241, 9);
+            height: 600px;
+        }
+        .son{
+            background-color: cyan;
+            width: 200px;
+            height: 300px;
+        }
+        .rgba{
+            background-color: rgba(125, 241, 9, 0.3);
+        }
+        .opacity{
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+    <p>rgba 子元素不继承</p>
+    <div class="father rgba">
+        <div class="son">
+        </div>
+    </div>
+    <p>opacity 子元素继承</p>
+    <div class="father opacity">
+        <div class="son">
+        </div>
+    </div>
+</body>
+</html>

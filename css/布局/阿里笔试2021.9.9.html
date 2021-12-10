@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        header{
+            background-color: aquamarine;
+            /* position: absolute; */
+            padding: 5px;
+            display: flex;
+            margin-bottom: 5px;
+            justify-content:space-between;
+        }
+        .logo{
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+        }
+        .input{
+            align-self:flex-end;
+            display: block;
+            /* position: absolute; */
+            height: 20px;
+            right: 0; 
+        }
+        middle{
+            background-color: blueviolet;
+            display: block;
+            display: flex;
+            padding: 5px;
+            margin-bottom: 5px;
+        }
+        content{
+            flex: 1;
+            margin-right: 5px;
+            display: block;
+            background-color: burlywood;
+            height: 200px;
+        }
+        aside{
+            flex: 0 0 200px;
+            background-color: brown;
+            display: block;
+            
+        }
+        footer{
+            display: block;
+            background-color:cadetblue;
+        }
+    </style>
+</head>
+<body>
+     <header>
+         <div class="logo">
+            logo
+         </div>
+         <input class="input" type="text" placeholder="用户名">
+         
+     </header>
+     <middle>
+         <content>
+            自适应
+         </content>
+         <aside>
+            aside
+         </aside>
+     </middle>
+     <footer>
+         footer
+     </footer>
+</body>
+</html>

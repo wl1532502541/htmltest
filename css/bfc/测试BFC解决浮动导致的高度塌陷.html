@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    overflow:hidden
+    <div class="container1">
+        <img src="http://www.w3cplus.com/sites/default/files/styles/print_image/public/blogs/2013/negative-margin-1.jpg">
+    </div>
+    <p>容器:after {content:'';diplay:block;clear:both}</p>
+    <div class="container2">
+        s
+        <img class="clear" src="http://www.w3cplus.com/sites/default/files/styles/print_image/public/blogs/2013/negative-margin-1.jpg">
+    </div>
+
+</body>
+<!-- 形成BFC常见条件 -->
+<!-- float不是none 
+    position是absolute或fixed 
+    overflow不是visible
+    display是inline-block flex等  -->
+<style>
+    img{
+        float:left;
+    }
+    .container1{
+        background-color: blue;
+        overflow: hidden; /* 将元素转成BFC 图片把容器撑开 解决高度塌陷 */ 
+    }
+    .container2{
+        background-color: blue;
+         /* 将元素转成BFC 图片把容器撑开 解决高度塌陷 */ 
+    }
+    .container2:after{
+        content: '';
+        display: block;
+        clear: both;
+    }
+
+</style>
+</html>

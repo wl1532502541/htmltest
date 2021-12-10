@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .block{
+            width: 100px;
+            height: 100px;
+            background: darkturquoise;
+        }
+        .tran{
+            transition: width 300ms ease-in;
+        }
+        .tran:hover{
+            width: 200px;
+        }
+        .spin{
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin{
+            0%{
+                transform:rotate(0deg);
+            }
+            50%{
+                transform: rotate(180deg);
+            }
+            100%{
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <p>伸缩</p>
+    <div class="block tran">
+        
+    </div>
+    <p>旋转</p>
+    <div class="block spin">
+
+    </div>
+</body>
+</html>

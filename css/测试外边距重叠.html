@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 水平方向测试 左右外边距不重叠 -->
+    <div class="horizontal">
+        <div id='first' class="in"></div>
+        <div id="second" class="in"></div>
+    </div>
+    <!-- 垂直方向测试 上下外边距重叠-->
+    <div class="vertical">
+        <div id="third" class="in"></div>
+        <div id="forth" class="in"></div>
+    </div>
+</body>
+<style>
+    .horizontal{
+        width: 800px;
+        height: 500px;
+        background-color: blue;
+        padding: 8px;
+    }
+    .in{
+        width: 200px;
+        height: 200px;
+    }
+    #first{
+        background-color: brown;
+        margin-right: 20px;
+        float: left;
+    }
+    #second{
+        background-color: burlywood;
+        margin-left: 20px;
+        float: left;
+    }
+    #third{
+        background-color: cadetblue;
+        margin-bottom: 20px;
+    }
+    #forth{
+        background-color: chartreuse;
+        margin-top: 20px;
+    }
+    .vertical{
+        width: 800px;
+        height: 500px;
+        padding: 8px;
+        background-color: brown;
+    }
+</style>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #my-slider{
+            position:relative;
+            width:780px
+        }
+        .silder-list ul{
+            list-style-type: none;
+            position: relative;
+            padding: 0;
+            margin: 0;
+        }
+        .slider-list ul li img{
+            width: 780px;
+        }
+        .slider-list__item,.slider-list__item--selected{
+            position: absolute;
+            transition: opacity 1s;
+            opacity: 0;
+            text-align: center;
+        }
+        .slider-list__item--selected{
+            transition: opacity 1s;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="my-slider" class="slider-list">
+        <ul>
+            <li class="slider-list__item--selected"><img src="http://www.sdust.edu.cn/__local/9/7A/B1/F29B84DEF72DD329997E8172ABA_664BA3EF_32466.jpg" alt=""></li>
+            <li class="slider-list__item"><img src="http://www.sdust.edu.cn/__local/B/F3/E4/693AB931C9FFB84646970D53BFE_C506394A_4282CA.jpg" alt=""></li>
+            <li class="slider-list__item"><img src="http://www.sdust.edu.cn/__local/F/7A/AA/E1459849AA8AB0C89854A41BD41_BF3BD857_BC0D8.jpg" alt=""></li>
+            <li class="slider-list__item"><img src="http://www.sdust.edu.cn/__local/1/95/CB/EDC1450B8FD1B8A25FAAC726AA4_A36D4253_16C91.jpg" alt=""></li>
+        </ul>
+    </div>
+    <script>
+        class Slider{
+            constructor(id){
+                this.container = document.getElementById(id)
+                this.items = this.container.querySelectorAll('.slider-list__item, .slider-list__item--selected')
+            }
+            getSelectedItem(){
+                const selected = this.container.querySelector('.slider-list__item--selected');
+                return selected
+            }
+            getSelectedItemIndex(){
+                return Array.from(this.items).indexOf(this.getSelectedItem())
+            }
+            slideTo(idx){
+                const selected = this.getSelectedItem();
+                if(selected){
+                    selected.className = 'slider-list__item'
+                }
+                const item = this.items[idx];
+                if(item){
+                    item.className = 'slider-list__item--selected'
+                }
+            }
+            slideNext(){
+                const currentIdx = this.getSelectedItemIndex();
+                const nextIdx = (currentIdx+1)%this.items.length;
+                this.slideTo(nextIdx)
+            }
+            slidePrevious(){
+                const currentIdx = this.getSelectedItemIndex();
+                const nextIdx = (currentIdx-1+this.items.length)%this.items.length
+                this.slideTo(nextIdx)
+            }
+        }
+        let mySlider=new Slider("my-slider")
+        setInterval(()=>{
+            mySlider.slideNext()
+        },3000)
+    </script>
+</body>
+</html>

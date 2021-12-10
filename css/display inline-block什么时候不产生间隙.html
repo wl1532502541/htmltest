@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .first{
+            display: inline-block;
+            background-color: aquamarine;
+        }
+        .second{
+            display: inline-block;
+            background-color: blue;
+        }
+        .fontsize0{
+            font-size: 0;
+        }
+        .fontsize16{
+            font-size: 16px;
+        }
+    </style>
+</head>
+<!-- 
+    移除空格
+    使用margin负值
+    使用font-size:0
+    letter-spacing
+    word-spacing 
+-->
+<body>
+    <p>1.移除空格</p>
+    <div class="first">
+        asd
+    </div><div class="second">
+        asd
+    </div>
+
+    <p>2.父元素font-size:0 子元素重新设置fontsize</p>
+    <div class="fontsize0">
+        <div class="first fontsize16">
+            asd
+        </div>
+        <div class="second fontsize16">
+            asd
+        </div>
+    </div>
+</body>
+</html>

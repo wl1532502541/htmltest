@@ -1,0 +1,38 @@
+
+  <div class="box1"></div>
+  <div class="box2">
+    <div class="child"></div>
+  </div>
+  <style>
+    .box1 {
+        width: 200px;
+      height: 100px;
+      margin: 10px;
+      background: red;
+    }
+    .box2 {
+        width: 200px;
+      height: 100px;
+      margin: 10px;
+      background: red;
+      /* 阻止外边距折叠 */
+      overflow: auto; 
+      /* overflow:hidden; */
+      /* position: absolute; */
+      /* position: fixed; */
+      /* display: inline-block; */
+      /* display: inline-flex; */
+      /* display: inline-table; */
+      /* display:grid; */
+      /* display: flex; */
+      /* display: flow-root; */
+      
+
+    }
+    .child {
+        width: 100px;
+      height: 50px;
+      background: blue;
+      margin: 20px;
+    }
+  </style>
