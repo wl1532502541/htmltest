@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="dist/clipboard.min.js"></script>
+  <script>
+    new ClipboardJS('.btn');
+  </script>
+</head>
+<body>
+  <!-- 遵循安全策略，在https或本地时浏览器才会暴露这个api，且复制粘贴需要用户给权限 -->
+  <input id="input1"></input>
+  <button id="btn1">读取剪切板的内容到左边</button>
+  <br>
+  <input id="input2">
+  <button id="btn2">复制左侧输入框内容</button>
+  <script>
+    let btn1 = document.getElementById('btn1')
+    let btn2 = document.getElementById('btn2')
+    let input1 = document.getElementById('input1')
+    let input2 = document.getElementById('input2')
+
+    async function readClipboard (target) {
+      if (!navigator.clipboard) {
+        // Clipboard API not available
+        return
+      }
+  
+      try {
+        const text = await navigator.clipboard.readText();
+        if(target){
+          target.value = text
+        }
+      } catch (err) {
+        console.error('Failed to copy!', err)
+      }
+    }
+    btn1.addEventListener('click',()=>{readClipboard(input1)})
+
+    async function writeClipboard (content) {
+      if (!navigator.clipboard) {
+        // Clipboard API not available
+        return
+      }
+      try {
+        await navigator.clipboard.writeText(content)
+        console.log('复制了内容：' + content + '到剪贴板')
+      } catch (err) {
+        console.log('Failed to write!', err)
+      }
+    }
+    btn2.addEventListener('click',()=>{writeClipboard(input2.value)})
+    // async function copy() {
+    //   try{
+    //     const image = await fetch('https://dummyimage.com/300.png');
+    //     const text = new Blob(['Cute sleeping kitten'], {type: 'text/plain'});
+    //     const item = new ClipboardItem({
+    //       'text/plain': text,
+    //       'image/png': image
+    //     });
+    //     await navigator.clipboard.write([item]);
+    //   }catch(err){
+    //     console.log(err)
+    //   }
+    // }
+  </script>
+</body>
+</html>
