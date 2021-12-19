@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #bubble-father {
+        width: 500px;
+        height: 500px;
+        background-color: aquamarine;
+      }
+      #bubble-son {
+        width: 200px;
+        height: 200px;
+        background-color: brown;
+      }
+      #capture-father {
+        margin-left: 100px;
+        width: 500px;
+        height: 500px;
+        background-color: aquamarine;
+      }
+      #capture-son {
+        width: 200px;
+        height: 200px;
+        background-color: brown;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="display: flex">
+      <div id="bubble-father">
+        <div id="bubble-son"></div>
+      </div>
+      <div id="capture-father">
+        <div id="capture-son"></div>
+      </div>
+    </div>
+
+    <script>
+      let bubbleFather = document.getElementById('bubble-father')
+      let bubbleSon = document.getElementById('bubble-son')
+      let captureFather = document.getElementById('capture-father')
+      let captureSon = document.getElementById('capture-son')
+      bubbleFather.onclick = function () {
+        alert('father')
+      }
+
+      bubbleSon.onclick = function () {
+        alert('son')
+      }
+      // 可指定第三个参数为true在捕获阶段触发相应事件
+      captureFather.addEventListener(
+        'click',
+        () => {
+          alert('father')
+        },
+        true
+      )
+      captureSon.addEventListener(
+        'click',
+        () => {
+          alert('son')
+        },
+        true
+      )
+      //   let div1 = document.getElementById('div1')
+      //   let div2 = document.getElementById('div2')
+
+      // div1.onclick = function () {
+      //   alert('1')
+      // }
+
+      // div2.onclick = function () {
+      //   alert('2')
+      // }
+    </script>
+  </body>
+</html>

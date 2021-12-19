@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    #normal {
+        background: deepskyblue;
+        /* 标准盒子：140 */
+        box-sizing: content-box;
+
+        width: 100px;
+        padding: 10px;
+        border: 10px solid #ccc;
+        margin: 10px;
+    }
+
+    #strange {
+        background: rgb(55, 12, 209);
+        /* 怪异盒子：100 */ 
+        box-sizing: border-box;
+        width: 100px;
+        padding: 10px;
+        border: 10px solid #ccc;
+        margin: 10px;
+    }
+</style>
+<body>
+    <div id='normal' >标准盒子（content-box）</div>
+    <div id='strange'>怪异盒子（border-box）</div>
+</body>
+<script>
+    var normal=document.getElementById('normal');
+    console.log(normal.offsetWidth,normal.width,normal.style.width);
+    var strange=document.getElementById('strange');
+    console.log(strange.offsetWidth,normal.width);
+    let csd=window.getComputedStyle(normal)
+    console.log(csd.getPropertyValue('padding'))
+    console.log(csd.getPropertyValue('border'))
+</script>
+</html>

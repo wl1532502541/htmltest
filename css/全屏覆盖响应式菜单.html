@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+        font-family:'Courier New', Courier, monospace;
+    }
+    #menu-overlay{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #f00;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-y: auto;
+        transform: scale(0);
+        transform-origin: 100vw 100vh;
+        transition: 0.5s transform;
+    }
+    #menu-overlay.active{
+        transform: scale(1);
+        transform-origin: 0 0 ;
+        transition: 0.5s transform;
+    }
+    #menu-overlay ul{
+        position: relative;
+    }
+    #menu-overlay ul li{
+        position: relative;
+        list-style: none;
+        text-align: center;
+        display: block;
+    }
+    #menu-overlay ul li a{
+        position: relative;
+        text-decoration: none;
+        font-size: 3.5em;
+        padding: 0 10px;
+        color: #fff;
+        font-weight: 700;
+        /* text-transform: uppercase; */
+        display: inline-block;
+    }
+    #menu-overlay ul li a:before{
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 8px;
+        background-color: #ff0;
+        transform: translateY(-50%) scaleX(0);
+        transform-origin: right;
+        transition: 0.5s transform;
+    }
+    #menu-overlay ul li a:hover:before{
+        transform: translateY(-50%) scaleX(1);
+        transform-origin: left;
+        transition: 0.5s transform;
+    }
+    #toggleIcon{
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background-color: #ff0;
+        z-index: 1;
+        cursor: pointer;
+    }
+    span{
+          position: fixed;
+          /* 先奖两条线放一起 然后单独设置第二条的位置 cal方法可以自动计算数值*/
+          top: 40px;
+          right: 30px;
+          width: 30px;
+          height: 4px;
+          border-radius: 15px;
+          background-color: #999;
+          z-index: 1;
+          /* 解决鼠标移到span点不到复选框 */
+          pointer-events: none;
+          /* 收回来的时候相反 */
+          transition: transform .3s ease-in-out,top 0.3s ease-in-out;
+      }
+    span:nth-child(2){
+          /* 设置第二条线 */
+          top: 50px;
+    }
+    #toggleIcon.active ~ span{
+        top: 45px;
+          transform: rotate(-45deg);
+          background-color: #fb7299;
+          /* 先执行top 0.3s后执行transform */
+          transition: top .3s ease-in-out,transform 0.3s ease-in-out;
+    }
+    #toggleIcon.active ~ span:nth-child(2){
+        top: 45px;
+          transform: rotate(45deg);
+          background-color: #fb7299;
+          transition: top .3s ease-in-out,transform 0.3s ease-in-out;
+    }
+    </style>
+</head>
+<body>
+    <div id="toggleIcon" onclick="menuToggle()"></div>
+    <span></span>
+    <span></span>
+    <div id="menu-overlay">
+        <ul>
+            <li><a href="#" onclick="return false;">Home</a></li>
+            <li><a href="#" onclick="return false;">About</a></li>
+            <li><a href="#" onclick="return false;">Services</a></li>
+            <li><a href="#" onclick="return false;">Portfolio</a></li>
+            <li><a href="#" onclick="return false;">Our Team</a></li>
+            <li><a href="#" onclick="return false;">Contact</a></li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        function menuToggle(){
+            var nav = document.getElementById('menu-overlay');
+            nav.classList.toggle('active');
+            var icon = document.getElementById('toggleIcon');
+            icon.classList.toggle('active')
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>slider</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 400px;
+      margin: 50px auto;
+    }
+    .track {
+      box-sizing: content-box;
+      position: relative;
+      background: #d1d1d1;
+      height: 30px;
+      line-height: 30px;
+      font-size: 12px;
+    }
+    .track::before,
+    .track::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 12px;
+      background: #d1d1d1;
+    }
+    .track::before {
+      left: -12px;
+      border-radius: 2px 0 0 2px;
+    }
+    .track::after {
+      right: -12px;
+      border-radius: 0 2px 2px 0;
+    }
+    .slider {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      background: rgba(66, 133, 244, 0.25);
+      text-align: center;
+      color: #fff;
+      font-size: 12px;
+      border-radius: 2px;
+      z-index: 1;
+      cursor: pointer;
+    }
+    .middle {
+      width: inherit;
+      position: absolute;
+      top: 0;
+      height: 100%;
+      background: rgba(66, 133, 244, 0.25);
+      text-align: center;
+      color: #fff;
+      font-size: 12px;
+      border-radius: 2px;
+      z-index: 1;
+      cursor: pointer;
+    }
+    .left {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 12px;
+      background: #4285f4;
+      border: 0;
+      padding: 0;
+      cursor: ew-resize;
+      left: -12px;
+      border-radius: 2px 0 0 2px;
+    }
+    .right {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 12px;
+      background: #4285f4;
+      border: 0;
+      padding: 0;
+      cursor: ew-resize;
+      outline: none;
+      right: -12px;
+      border-radius: 0 2px 2px 0;
+      z-index: 10;
+    }
+    .right:not(:hover):not(:active) > span,
+    .left:not(:hover):not(:active) > span {
+      visibility: hidden;
+      color: #000;
+    }
+    .right > span,
+    .left > span {
+      position: absolute;
+      bottom: 33px;
+      transform: translate(-50%);
+      left: 50%;
+      visibility: visible;
+    }
+    .right > span > span,
+    .left > span > span {
+      display: block;
+      background: #4285f4;
+      height: 20px;
+      padding: 0 4px;
+      border-radius: 2px;
+      line-height: 20px;
+    }
+    .left::before,
+    .left::after,
+    .right::before,
+    .right::after {
+      content: "";
+      position: absolute;
+      width: 1px;
+      height: 8px;
+      background: #fff;
+      margin: 1px;
+      top: 10px;
+      right: 3px;
+    }
+    .left::before,
+    .right::before {
+      left: 3px;
+    }
+  </style>
+  <body>
+    <!-- 容器 -->
+    <div class="container">
+      <!-- 轨道 -->
+      <div class="track">
+        <!-- 滑块 -->
+        <div class="slider" style="left: 0px;">
+          <!-- 中间按钮 -->
+          <div class="middle">0</div>
+          <!-- 左边按钮 -->
+          <div class="left">
+            <span>
+              <span style="margin-left: 30px;" class="left-text">0</span>
+            </span>
+          </div>
+          <!-- 右边按钮 -->
+          <div class="right">
+            <span>
+              <span style="margin-left: 0px;" class="right-text">0</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    class Slider {
+      constructor(options) {
+        this._init(options);
+      }
+      /**
+       * @description: 初始化
+       * @param {Object} options
+       */
+      _init(options) {
+        this.options = options; // 传入的参数对象
+        //
+        this.init_width = options.slider_width; // 初始滑块宽度
+
+        options.range &&
+          options.range.min &&
+          (this.range_min = options.range.min); // 滑块宽度最小值
+        options.range &&
+          options.range.max &&
+          (this.range_max = options.range.max); // 滑块宽度最大值
+        //
+        this.btn_left_slider = this._$(options.btn.left); // 滑块左边按钮类 - 用于向左边进行拉伸
+        this.text_middle = this.btn_middle_slider = this._$(options.btn.middle); // 初始滑块宽度类  - 用于滑块整体左右移动  // 滑块中间按钮上面文案提示类
+        this.btn_right_slider = this._$(options.btn.right); // 初始滑块宽度类  - 用于向右边边进行拉伸
+        //
+        this.track = this._$(options.track); // 滑块轨道类
+        this.slider = this._$(options.slider); // 滑块轨道类
+        //
+        this.text_left = this._$(options.text.left); // 滑块左边按钮上面文案提示类
+        this.text_right = this._$(options.text.right); // 滑块右边按钮上面文案提示类
+        //
+        this._initAttr(); // 初始化属性值
+        this._initevent(); // 初始化事件
+      }
+
+      /**
+       * @description: 初始化文案
+       */
+      _initAttr() {
+        this.slider.style.width = this.options.slider_width + "px";
+        this.text_middle.innerText = this.options.slider_width;
+      }
+      /**
+       * @description: 初始化事件
+       */
+      _initevent() {
+        this.slider.onmousedown = ({ target: { className }, clientX }) => {
+          // 滑块宽度 动态值
+          const sliderWidth = this.slider.offsetWidth;
+          // 滑块 距离左边 动态值
+          const sliderLeft = this.slider.offsetLeft;
+
+          switch (className) {
+            case this.options.btn.middle:
+              // 滑块 X 坐标计算
+              this.disX = clientX - this.slider.offsetLeft;
+              // 滑块整体向右边移动 最大能移动的临界值
+              const valid_right = this.track.offsetWidth - sliderWidth;
+              //
+              document.onmousemove = ({ clientX }) => {
+                this.slider.style.left =
+                  clientX - this.disX < 0
+                    ? 0 // 如果是滑块整体向左移动 超出临界值 就是临界值
+                    : clientX - this.disX > valid_right
+                    ? valid_right + "px" // 如果是滑块整体向右移动 超出临界值 就是临界值
+                    : clientX - this.disX + "px";
+                this._syncText();
+              };
+              break;
+            case this.options.btn.left:
+              // 滑块 X 坐标计算
+              this.disX = clientX;
+              // 滑块右边按钮 至 轨道 最左边变距离
+              const rightWidth =
+                this.slider.getBoundingClientRect().right -
+                this.track.getBoundingClientRect().left;
+              //
+              document.onmousemove = ({ clientX }) => {
+                // 两点间的 x 差值 // 向左 一直移动，临界值是 0 超出边界 就会变成 负数  ，如果一直向右移动，超出右边临界值，右边临界值在移动到右边按钮时产生
+                const diff = this.disX - clientX;
+                //  如果 一直向左移动 对应的 临界值
+                let valid_left = sliderWidth + diff;
+                // 如果 一直向右移动 对应的 临界值
+                let valid_right = sliderLeft - diff;
+
+                if (this.range_min && valid_left <= this.range_min) {
+                  // 如果有设置最小范围值 并且 此时 向左拉伸超出最小值，那么此时的 值 就是最小值  range_min
+                  valid_left = this.range_min;
+                  valid_right = rightWidth - valid_left;
+                } else if (this.range_max && valid_left >= this.range_max) {
+                  // 如果右设置最大范围值 并且此时移动 valid_left 超出 设置的最大范围值
+                  valid_left =
+                    this.range_max >= rightWidth ? rightWidth : this.range_max; // 如果设置的最大范围值 超出有效值 rightWidth，那么就设置 valid_left 为 有效值 rightWidth ,否则就是设置为最大范围值
+                  valid_right = rightWidth - valid_left;
+                } else if (valid_left >= rightWidth) {
+                  // 如果一直向左边移动 ， 超出 有效值 rightWidth，（抵死在左边情形）
+                  valid_left = rightWidth;
+                  valid_right = 0;
+                } else if (valid_right >= rightWidth) {
+                  // 如果一直向右边移动 ， 超出 有效值 rightWidth
+                  valid_left = 0;
+                  valid_right = rightWidth;
+                }
+                this.slider.style.left = valid_right + "px";
+                this.slider.style.width = valid_left + "px";
+                this.btn_right_slider.style.left = valid_left + "px";
+                this._syncText();
+              };
+              break;
+            case this.options.btn.right:
+              // 滑块 X 坐标计算
+              this.disX = clientX - this.btn_right_slider.offsetLeft;
+              //
+              document.onmousemove = ({ clientX }) => {
+                // track 轨道宽度
+                const track_width = this.track.offsetWidth;
+                // 滑块左边可滑动距离
+                const valid_left = this.slider.offsetLeft;
+                // 滑块整体向右边移动 最大能移动的临界值
+                const valid_right = this.range_max
+                  ? this.range_max >= track_width - valid_left
+                    ? track_width - valid_left
+                    : this.range_max
+                  : track_width - valid_left;
+                // 两点x坐标差值
+                const diff = clientX - this.disX;
+                // 滑块右边按钮的 left 值 设置
+                this.btn_right_slider.style.left =
+                  (diff <= (this.range_min || 0)
+                    ? this.range_min || 0
+                    : diff >= valid_right
+                    ? valid_right
+                    : diff) + "px";
+                // 滑块的宽度 width 设置
+                this.slider.style.width =
+                  this.btn_right_slider.offsetLeft + "px";
+                // 文案同步
+                this._syncText();
+              };
+              break;
+          }
+          document.onmouseup = () => {
+            document.onmousemove = null;
+            document.onmouseup = null;
+          };
+          return false;
+        };
+      }
+      /**
+       * @description: 获取dom
+       * @param  { string } className
+       */
+      _$(className) {
+        return document.querySelector(`.${className}`);
+      }
+      /**
+       * @description: 同步文案信息
+       */
+      _syncText() {
+        // 开始按钮距离 左边的距离
+        const start = this.slider.offsetLeft;
+        // 结束按钮距离 左边的距离
+        const end =
+          this.slider.getBoundingClientRect().right -
+          this.track.getBoundingClientRect().left;
+        // 容器的总宽度
+        const total = this.track.offsetWidth;
+        // 刷新 左边按钮 tip 文案
+        this.text_left.innerText = start;
+        // 刷新 右边按钮 tip 文案
+        this.text_right.innerText = end;
+        // 刷新 内容按钮 tip 文案
+        this.btn_middle_slider.innerText = end - start;
+      }
+      /**
+       * @description: 手动设置右边按钮拉伸到右边，
+       * @param { Number } n：设置的值 范围 为： {0, rightMax：右边最大距离值}
+       */
+      rightStretch(n) {
+        // 边界处理
+        const rightMax = this.track.offsetWidth - this.slider.offsetLeft;
+        this.slider.style.width = this.btn_right_slider.style.left =
+          (n >= rightMax ? rightMax : n) + "px";
+        this._syncText();
+        return this;
+      }
+
+      /**
+       * @description: 手动设置左边按钮拉伸到左边，
+       * @param { Number } n：设置的值 范围 为： { leftMax：左边最大距离值，0}
+       */
+      leftStretch(n) {
+        // <左边最大距离值>
+        const leftMax =
+          this.slider.getBoundingClientRect().right -
+          this.track.getBoundingClientRect().left;
+        // 如果左边按钮超出 最大距离左边边界值，则 就都设置成 <左边最大距离值>leftMax
+        this.slider.style.width = this.btn_right_slider.style.left =
+          (n >= leftMax ? leftMax : n) + "px";
+        // 边界处理
+        this.slider.style.left = (n <= leftMax ? leftMax - n : 0) + "px";
+        this._syncText();
+        return this;
+      }
+
+      /**
+       * @description: 手动设置滑块整体 向右 / 向右 移动
+       * @param { Number } n ：移动距离 {左边：0，右边：max }
+       */
+      move(n) {
+        const max = this.track.offsetWidth - this.slider.offsetWidth;
+        this.slider.style.left = (n >= max ? max : n) + "px";
+        this._syncText();
+        return this;
+      }
+    }
+    const slider = new Slider({
+      slider_width: 50,
+      track: "track",
+      slider: "slider",
+      text: {
+        left: "left-text",
+        right: "right-text"
+      },
+      btn: {
+        left: "left",
+        right: "right",
+        middle: "middle"
+      }
+      // range: {
+      //     min: 50,
+      //     max: 200
+      // }
+    });
+    // console.log(slider)
+  </script>
+</html>

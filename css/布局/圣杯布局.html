@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<!-- min-width的值必须大于等于三栏总宽 -->
+		<div id="head" style="
+			height: 200px;
+			background-color: #008000;
+			min-width: 700px;">
+			头部：100%*200
+			<!-- height:不重要但要有;
+			 background-color:设置背景颜色;
+			 不设置宽度:div默认占满一行,默认等同于width:100%-->
+		</div>
+		<div id="middle" style="height: 200px;
+					padding: 0 220px 0 200px;
+					min-width: 700px;
+					box-sizing: border-box;">
+					<!--height:不重要但要有; 
+						padding:重点,padding-left为左栏的宽度,padding-right设为右栏的宽度,上下内间距无所谓;
+						设置min-width和box-sizing使得在浏览器缩小的情况下#middle包括content内容,padding和border在内,最小的宽度为700px,
+						这样#center的100%宽度为#middle的content宽度-->
+			<div id="center" style="background-color: #00FFFF;
+									width: 100%;
+									height: 200px;
+									float: left;">
+									<!--#center下载#left和#right在前,即满足中间栏优先渲染的要求 
+										width:100%即占满middle,达到自适应的目的;
+										height:不重要但要有;
+										float:设置浮动,因为width为100%,所以也是浮动的左右栏会被挤到下一行;
+										background-color:设置背景颜色;-->
+				中间：自适应*200
+			</div>
+			<div id="left" style="background-color: #FF0000;
+								  width: 200px;
+								  height: 200px;
+							  	  float: left;
+								  margin-left: -100%;
+								  position: relative;
+								  left: -200px;">
+								  <!--width:要与#middle的padding-left值相同,固定宽;
+								  	height:不重要但要有;
+									float:设置浮动,是的被100%宽度的#center挤到下一行,且此时#left的左侧与#center的左侧在同一横轴上;
+									margin-left: 将#left通过设置外间距转移到上一行,且此时#left的左侧与#center的左侧重合;
+									position:设置为相对,使得#left可以通过left属性偏移到#center的左侧;
+									left:设置为#middle的padding-left值,也为#left的宽度值,此时#left的右侧与#center的左侧重合;
+									至此#left遮住(占满)了#middle的内左侧,成为#middle的左栏;-->
+				左边：200*200
+			</div>
+			<div id="right" style="background-color: #FF0000;
+									width: 220px;
+									height: 200px;
+									float: left;
+									position: relative;
+									left: 220px;
+									margin-left: -220px;">
+									<!--由于#left上去了,所以#right成为了第二行的头头;
+										width:要与#middle的padding-right值相同,固定宽;
+										height:不重要但要有;
+										float:设置浮动,是的被100%宽度的#center挤到下一行,且此时#right的左侧与#center的左侧在同一横轴上;
+										margin-left: 将#right通过设置外间距转移到上一行,且此时#right的右侧侧与#center的右侧重合;
+										position:设置为相对,使得#right可以通过left属性偏移到#center的右侧;
+										left:设置为#middle的padding-right值,也为#right的宽度值,此时#right的左侧与#center的右侧重合;
+										至此#right遮住(占满)了#middle的内右侧,成为#middle的右栏-->
+				右边：200*200
+			</div>
+			<!-- 当#middle的高度不为固定值时,就像需要如此清除浮动,使得middle不会出现高度塌陷,能完全适配内部三栏的高且包得住内部三栏
+			<div id="clear_float" style="clear: both;
+						visibility: hidden;">
+			</div> -->
+		</div>
+		<div id="footer" style="height: 200px;
+								background-color: #008000;
+								min-width: 700px;">
+								底部：100%*200
+								<!-- height:不重要但要有;
+								 background-color:设置背景颜色
+								 不设置宽度:div默认占满一行,默认等同于width:100%;
+								 设置min-width和box-sizing使得在浏览器缩小的情况下#footer包括content内容,padding和border在内,最小的宽度为700px;-->
+		</div>
+	</body>
+</html>
+<style>
+	*{
+		/* 此处为css初始化 */
+		/* padding: 0; */
+		/* 将所有标签的padding都设置为0，避免影响宽高 */
+		/* margin: 0; */
+		/* 将所有将所有标签的padding都设置为0，避免影响宽高和元素位置 */
+		text-align: center;
+		/* (不重要)所有文字水平居中 */
+		line-height: 200px;
+		/* (不重要)设置行高，让所有文字都相对于其所在元素内部垂直居中，要求 */
+		font-size: 20px;
+		/* (不重要)设置字体大小 */
+	}
+</style>
+————————————————
+版权声明：本文为CSDN博主「Xu_Lisa」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/qq_43228135/article/details/118401570

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .contain{
+            width: 1500px;
+            height: 1000px;
+            margin: 100px auto;
+        }
+        .contain ul li{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .contain ul{
+            display: flex;
+            width: 100%;
+        }
+        .contain ul li{
+            display: block;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            transition: all 1s;
+        }
+        .contain ul li:hover{
+            flex: 0 0 60%;
+            transition: all 1s;
+        }
+        .contain ul li .brief{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style>
+  </head>
+  <body>
+    <div class="contain">
+      <ul>
+        <li>
+          <a href="#">
+            <img src="img/name_01.png" class="brief">
+            <img src="img/h_01.png"/>
+          </a>
+          <div class="title">
+            <a href="#"></a>
+          </div>
+        </li>
+        <li>
+          <a href="#">
+            <img src="img/name_02.png" class="brief">
+            <img src="img/h_02.png" />
+          </a>
+          <div class="title">
+            <a href="#"></a>
+          </div>
+        </li>
+        <li>
+          <a href="#">
+            <img src="img/name_03.png" class="brief">
+            <img src="img/h_03.png" />
+          </a>
+          <div class="title">
+            <a href="#"></a>
+          </div>
+        </li>
+        <li>
+          <a href="#">
+            <img src="img/name_04.png" class="brief">
+            <img src="img/h_04.png" />
+          </a>
+          <div class="title">
+            <a href="#"></a>
+          </div>
+        </li>
+        <li>
+          <a href="#">
+            <img src="img/name_05.png" class="brief">
+            <img src="img/h_05.png" />
+          </a>
+          <div class="title">
+            <a href="#"></a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
