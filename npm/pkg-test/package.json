@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "leinaldo-cli": "^1.0.1"
+    "leinaldo-cli": "^1.0.2"
   }
 }
